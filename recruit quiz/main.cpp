@@ -25,16 +25,17 @@ int main() {
 	// 割り算
 	x = uniform_int_distribution<>(1, 100)(rand);
 	y = uniform_int_distribution<>(1, 10)(rand);
-	questions[1].q = to_string(x) + " ÷ " + to_string(y); // 問題文を作成
-	questions[1].a = x / y; // 答えを計算
+	questions[1].q = to_string(x * y) + " ÷ " + to_string(y); // 問題文を作成
+	questions[1].a = x; // 答えを計算
 
 	// 複雑な式
 	x = uniform_int_distribution<>(1, 100)(rand);
 	y = uniform_int_distribution<>(1, 10)(rand);
 	int z = uniform_int_distribution<>(1, 10)(rand);
 	int w = uniform_int_distribution<>(1, 10)(rand);
-	questions[2].q = to_string(x) + " - (" + to_string(y) + " + " + to_string(z) + ") ÷ " + to_string(w); // 問題文を作成
-	questions[2].a = x - (y + z) / w; // 答えを計算
+	questions[2].q = 
+		to_string(x) + " - (" + to_string(y * w) + " + " + to_string(z * w) + ") ÷ " + to_string(w); // 問題文を作成
+	questions[2].a = x - (y + z); // 答えを計算
 
 	cout << "[リクルート試験対策クイズ]\n";
 
