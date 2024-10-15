@@ -39,10 +39,10 @@ int main() {
 	questions[2].a = x - (y + z); // 答えを計算
 
 	//三角形の面積
-	x = uniform_int_distribution<>(1, 10)(rand);
+	x = uniform_int_distribution<>(1, 10)(rand);	
 	y = uniform_int_distribution<>(1, 5)(rand)*2;
 	questions.push_back({
-		"面積" + to_string(x * y / 2) + "cm^2、	底辺" + to_string(y) + "cmの三角形の高さを求めよ。",
+		"面積" + to_string(x * y / 2) + "cm^2、底辺" + to_string(y) + "cmの三角形の高さを求めよ。",
 		x });
 
 
