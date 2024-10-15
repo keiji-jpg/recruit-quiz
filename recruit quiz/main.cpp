@@ -83,6 +83,18 @@ int main() {
         to_string((y + 1) / z) + "/" + to_string(6 / z) });
     cout << "[リクルート試験対策クイズ]\n";
 
+    //順列
+    x = uniform_int_distribution<>(3, 7)(rand);
+    y = uniform_int_distribution<>(1, x)(rand);
+    z = 1;
+    for (int i = 0; i < y; i++) {
+        z *= x - 1;
+    }
+    questions.push_back({
+        to_string(x) + "人のうち" + to_string(y) + "人を選んで選べる方法は何通りあるか?",
+        to_string(z) });
+
+
     for (const auto& e : questions) {
         cout << e.q << " \n"; // 問題文を表示
 
