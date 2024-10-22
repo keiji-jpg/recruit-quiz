@@ -1,4 +1,5 @@
 #include"question.h"
+#include"exam_japanese.h"
 #include<iostream>
 #include<string>
 #include<vector>
@@ -77,7 +78,7 @@ int main() {
         "サイコロふって、" + to_string(x) + "から" + to_string(x + y) +
         "が出る確率を求めよ。",
         to_string((y + 1) / z) + "/" + to_string(6 / z) });
-    cout << "[リクルート試験対策クイズ]\n";
+    
 
     //順列
     x = uniform_int_distribution<>(3, 7)(rand);
@@ -105,6 +106,14 @@ int main() {
         to_string(x) + "人のうち" + to_string(y) + "人を選ぶ組み合わせは何通りあるか?",
         to_string(z) });
 
+    cout << "[リクルート試験対策クイズ]\n";
+
+    cout << "教科を選んでください\nn1=数学\nn2=国語\n";
+    int subject;
+    cin >> subject;
+    if (subject == 2) {
+        questions = CreateKanjiExam();
+    }
 
 
     for (const auto& e : questions) {
