@@ -100,6 +100,7 @@ int main() {
         z *= x - 1;
     }
     for (int i = 0; i < y; i++) {
+
         z /= y - 1;
     }
     questions.push_back({
@@ -110,6 +111,7 @@ int main() {
 
     cout << "‹³‰È‚ð‘I‚ñ‚Å‚­‚¾‚³‚¢\nn1=”Šw\nn2=‘Œê\n";
     int subject;
+
     cin >> subject;
     if (subject == 2) {
         questions = CreateKanjiExam();
