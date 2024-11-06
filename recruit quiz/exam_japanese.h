@@ -11,3 +11,6 @@ QuestionList CreateIdiomExam();
 QuestionList CreateHomophoneExam();
 
 QuestionList CreateAntonymExam();
+
+//—Ş‹`Œê‚Ì–â‘è‚ğì¬
+QuestionList CreateSynonymExam();

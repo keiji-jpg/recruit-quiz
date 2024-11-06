@@ -122,6 +122,8 @@ int main() {
         questions.insert(questions.end(), HomophoneExam.begin(), HomophoneExam.end());
         QuestionList antonymExam = CreateAntonymExam();
         questions.insert(questions.end(), antonymExam.begin(), antonymExam.end());
+        QuestionList synoymExam = CreateSynonymExam();
+        questions.insert(questions.end(), synoymExam.begin(), synoymExam.end());
     }
     else if (subject == 3) {
         questions = CreateEnglishWordExam();

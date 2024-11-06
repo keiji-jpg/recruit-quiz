@@ -229,6 +229,11 @@ QuestionList CreateKanjiExam() {
 			{"緊張(きんちょう)","弛緩(しかん)" },{"過疎(かそ)","過密(かみつ)"},
 			{"栄転(えいてん)","左遷(させん)" },{"消費(しょうひ)","生産(せいさん)"},
 			{"異端(いたん)","正統(せいとう)" },{"尊敬(そんけい)","軽蔑(けいべつ)"},
+			{"警戒(けいかい)","油断(ゆだん)" },{"帰納(きのう)","演繹(えんえき)"},
+			{"枯渇(こかつ)","潤沢(じゅんたく)" },{"乾燥(かんそう)","湿潤(しつじゅん)"},
+			{"賞賛(しょうさん)","罵倒(ばとう)" },{"中枢(ちゅうすう)","末端(まったん)"},
+			{"絶賛(ぜっさん)","酷評(こくひょう)" },{"想像(そうぞう)","模倣(もほう)"},
+			{"過激(かげき)","穏健(おんけん)" },{"質素(しっそ)","華美(かび)"},
 		};
 
 		constexpr int quizCout = 5;
@@ -258,4 +263,64 @@ QuestionList CreateKanjiExam() {
 		}
 		return questions;
 
+	}
+
+	QuestionList CreateSynonymExam()
+	{
+		const struct {
+			int count;	//要素数
+			const char* kanji[4]; //類義語の配列
+		} data[] = {
+			{2,"仲介(ちゅうかい)","斡旋(あっせん)"},
+			{3,"夭逝(ようせい)","夭折(ようせつ)","早世(そうせい)"},
+			{3,"交渉(こうしょう)","折衝(せっしょう)","協議(きょうぎ)"},
+			{3,"抜群(ばつぐん)","傑出(けっしゅつ)","出色(しゅっしょく)"},
+			{3,"熟知(じゅくち)","通暁(つうぎょう)","知悉(ちしつ)"}
+		};
+
+		constexpr int quizCount = 5;
+		QuestionList questions;
+		questions.reserve(quizCount);
+		const vector<int> indices = CreateRandomIndices(size(data));
+		random_device rd;
+		mt19937 gen(rd());
+
+		for (int i = 0; i < quizCount; i++) {
+			// 正解インデックス
+			const int correctIndex = indices[i];
+			vector<int> answers = CreateWrongIndices(size(data), correctIndex);
+
+			// 正解の位置をランダムに決定
+			const int correctNo = uniform_int_distribution<>(1, 4)(gen);
+			answers[correctNo - 1] = correctIndex;
+
+			// 主題となる類義語のインデックスを選択
+			const auto& e = data[correctIndex];
+			const int object = uniform_int_distribution<>(0, e.count - 1)(gen);
+
+			// 問題文の作成
+			string s = "「" + string(e.kanji[object]) + "」の類義語として正しい番号を選べ";
+
+			for (int j = 0; j < 4; j++) {
+				if (j == correctNo - 1) {
+					// 主題する語「以外」の類義語を正解として選択
+					int other = uniform_int_distribution<>(0, e.count - 2)(gen);
+					if (other >= object) {
+						other++;
+					}
+					s += "\n" + to_string(j + 1) + ":" + string(e.kanji[other]);
+				}
+				else {
+					// 間違いの選択肢を追加
+					const auto& f = data[answers[j]];
+					const int k = uniform_int_distribution<>(0, f.count - 1)(gen);
+					s += "\n" + to_string(j + 1) + ":" + string(f.kanji[k]);
+				}
+			}
+
+			// 問題と答えをリストに追加
+			questions.push_back({ s, to_string(correctNo) });
+		}
+
+		return questions;
 	}
