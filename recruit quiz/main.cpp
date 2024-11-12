@@ -98,11 +98,11 @@ int main() {
     y = uniform_int_distribution<>(1, x)(rand);
     z = 1;
     for (int i = 0; i < y; i++) {
-        z *= x - 1;
+        z *= x - i;
     }
     for (int i = 0; i < y; i++) {
 
-        z /= y - 1;
+        z /= y - i;
     }
     questions.push_back({
         to_string(x) + "人のうち" + to_string(y) + "人を選ぶ組み合わせは何通りあるか?",
@@ -127,6 +127,8 @@ int main() {
     }
     else if (subject == 3) {
         questions = CreateEnglishWordExam();
+        QuestionList phraseExam = CreateEnglishPhraseExam();
+        questions.insert(questions.end(), phraseExam.begin(), phraseExam.end());
     }
 
 
