@@ -44,7 +44,8 @@ QuestionList CreatePhysicsExam()
 		 t = uniform_int_distribution<>(1, 10)(rd); //移動時間
 		questions.push_back({
 		   "秒速" + to_string(v0) + "Kmで移動していた車が、進行方向に大きさ" + to_string(a) +
-		   "m/sで等加速度直線運動をはじめた。\n加速を始めてから" + to_string(t) + "秒後までに移動した距離をm単位で求めよ。",
+		   "m/sで等加速度直線運動をはじめた。\n加速を始めてから" + to_string(t) +
+		   "秒後までに移動した距離をm単位で求めよ。",
 		   to_string(v0*t+a*t*t/2) });
 
 		//公式: v^2 - v0^2 = 2axを使って解く問題
@@ -52,12 +53,50 @@ QuestionList CreatePhysicsExam()
 		t = uniform_int_distribution<>(1, 10)(rd); //移動時間
 		v0 = -a * t; //初速
 		questions.push_back({
-		   "秒速" + to_string(v0) + "Kmで移動していた車がブレーキをかけたところ" +
-		   to_string(v0 *t+a*t*t/2) +"m進んで停止した。\n"+
+		   "秒速" + to_string(v0) + "mで移動していた車がブレーキをかけたところ" +
+		   to_string(v0*t+a*t*t/2) +"m進んで停止した。\n"+
 			"ブレーキの加速度をm/s^2単位で求めよ。" 
 			+ to_string(a)  });
 
 
 	}//等加速度直線運動
+
+	{//重力加速度
+		int t = uniform_int_distribution<>(1, 10)(rd);	//移動時間
+		int x = 98 * t * t / 2; //１０倍することで、小数点以下第一までを整数として表す
+		string answer = to_string(x / 10); //整数部を文字列化
+		if (x % 10) {
+			answer += '.';
+			answer += '0' + x % 10;
+
+		}
+		questions.push_back({
+			"重力加速度を9.8m/s^2とする。\n十分に高い位置から物体を静かに落とすと、物体は" +
+			to_string(t) + "秒間でXm落下する。\n" +
+			"Xの値は小数点以下第一まで求めよ(空気抵抗はないものとする)。",
+			answer });
+
+		int v0 = uniform_int_distribution<>(5, 10)(rd); //加速
+		 t = uniform_int_distribution<>(1, 10)(rd);	//移動時間
+		int v = v0 * 10 - 98 * t; //速度
+		answer.clear();
+		if (v < 0) {
+			v = -v;
+			answer = '-';
+		}
+		answer += to_string(v / 10);
+		if (v % 10) {
+			answer += '.';
+			answer += '0' + v % 10;
+		}
+		questions.push_back({
+			"重力加速度を9.8m/s^2とする。\n初速" + to_string(v0) +
+			"m/sで物体を鉛直に投げたとき、" + to_string(t) +
+			"秒後の物体の速度はXm/sである。\n" +
+			"Xの値は小数点以下第一位まで求めよ(空気抵抗はないものとする)。",
+			answer });
+
+
+	} //重力加速度
 	return questions;
 }
