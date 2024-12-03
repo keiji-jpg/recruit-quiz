@@ -190,6 +190,21 @@ QuestionList CreatePhysicsExam()
 			"Xの値を小数点以下第２位を四捨五入して求めよ。",
 			answer });
 
+		k1 = uniform_int_distribution<>(1, 10)(rd); //ばね定数1(n/m)
+		k2 = uniform_int_distribution<>(1, 10)(rd); //ばね定数2(n/m)
+		m = uniform_int_distribution<>(1, 10)(rd)*10; //質量(g)
+		x = 100 * m / (k1 + k2) + 5;
+		answer = to_string(x / 100);
+		if (x % 10) {
+			answer += '.';
+			answer += '0' + x % 10;
+		}
+		questions.push_back({
+			"重力加速度をを10m^2とする。\nばね定数が" + to_string(k1) + "と" + to_string(k2) +
+			"の２本のばねを水平な天井に固定し、ばねのした端に木の棒に水平に取り付けた。\n"+
+			"この棒の中央に質量"+ to_string(m)+ "gの重りを吊り下げた。\n"+
+			"すると、ばねの長さがそれぞれXmだけ四捨五入して求めよ。",
+			answer});
 	}//ばね
 
 
