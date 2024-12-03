@@ -117,6 +117,24 @@ QuestionList CreatePhysicsExam()
 			"このとき、この円柱に働く浮力はXニュートンである。\n" +
 			"Xの値は小数点以下第２位を四捨五入して求めよ。",
 			answer });
+
+		int x = uniform_int_distribution<>(20, 50)(rd)*10; //重さ(水中)
+		int y = uniform_int_distribution <>(x/2,x-1)(rd); //重さ(水中)
+		int z = x - y + 5; //体積を求め、四捨五入のために５を加える
+		answer = to_string(z / 100);
+		z /= 10;	
+
+		if (z % 10) {	//小数点以下第一がゼロ以外なら、少数部を文字列に加える
+			answer += '.';
+			answer += '0' + z % 10;
+
+		}
+		questions.push_back({
+			"質量100gの物体に働く重力を1Nとする。\nある物体の重さばねはかりではかると、" +
+			to_string(x) + "gを示した。\n" + "この物体を完全に水に入れたところ、ばねはかりは"
+			+ to_string(y) + "gを示した。\nこのとき、物体にはたらく浮力はXニュートンである。\n" +
+			"Xの値を小数点以下第２位を四捨五入して求めよ。",
+			answer });
 	}//浮力
 	//重力加速度
 	return questions;
