@@ -135,7 +135,22 @@ QuestionList CreatePhysicsExam()
 			+ to_string(y) + "gを示した。\nこのとき、物体にはたらく浮力はXニュートンである。\n" +
 			"Xの値を小数点以下第２位を四捨五入して求めよ。",
 			answer });
-	}//浮力
+
+		int p0 = uniform_int_distribution<>(1, 9)(rd)*10; //密度
+			 s = uniform_int_distribution <>(5, 10)(rd);   //底面積
+			 h = uniform_int_distribution<>(5, 10)(rd);    //高さ
+			 answer = to_string(h * p0 / 100);
+			 if (h * p0 % 100) {
+				 answer += '.';
+				 answer += '0' + h * p0 / 10 % 10;
+			 }
+
+			 questions.push_back({
+				 "密度" + to_string(p0) + "g/cm3、底面積" + to_string(s) + "cm^2、高さ" +
+				 to_string(h) + "cmの物体を水に沈めようとしたところ、Xcm沈んで静止した。\n" +
+				 "Xの値を小数点以下第一まで求めよ。",
+				 answer });
+			}//浮力
 	//重力加速度
 	return questions;
 }
