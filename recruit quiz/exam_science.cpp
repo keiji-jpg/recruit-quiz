@@ -151,6 +151,27 @@ QuestionList CreatePhysicsExam()
 				 "Xの値を小数点以下第一まで求めよ。",
 				 answer });
 			}//浮力
+
+	{	//ばね
+		int a = uniform_int_distribution<>(10, 30)(rd) ; //自然長(cm)
+		int x = uniform_int_distribution <>(1, a/2)(rd);   //自然長から変化量(cm)
+		int m = uniform_int_distribution<>(1, 20)(rd);    //質量(g)
+		int k = 100 * m / x + 5;	//kの100倍を求め、四捨五入のために5を足す
+		string answer = to_string(k / 100);//整数部を文字列に変換
+		k /= 10; {			//小数点以下第一が0以外なら、少数部が文字列に加える
+			answer += '.';
+			answer += '0' + k % 10;
+		}
+		questions.push_back({
+			"重力加速度を10ms^2とする。\n長さ" + to_string(x) + "cmのばねの先端に" +
+			to_string(m) + "gの重りをつけて、天井から吊り上げた。\nすると、ばねの長さが" +
+			to_string(a + x) + "cmになった。\n" +
+			"このばね[ばね定数]を小数点以下第２位を四捨五入して求めよ。",
+			answer });
+
+	}//ばね
+
+
 	//重力加速度
 	return questions;
 }
