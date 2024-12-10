@@ -128,6 +128,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="exam_enlish.cpp" />
+    <ClCompile Include="exam_gegraphy.cpp" />
     <ClCompile Include="exam_japanese.cpp" />
     <ClCompile Include="exam_science.cpp" />
     <ClCompile Include="main.cpp" />
@@ -135,6 +136,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="exam_enlish.h" />
+    <ClInclude Include="exam_gegraphy.h" />
     <ClInclude Include="exam_japanese.h" />
     <ClInclude Include="exam_science.h" />
     <ClInclude Include="question.h" />
