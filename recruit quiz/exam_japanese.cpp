@@ -337,3 +337,21 @@ QuestionList CreateKanjiExam() {
 
 		return questions;
 	}
+
+	//çëåÍñ‚ëËÇçÏê¨Ç∑ÇÈ
+
+	QuestionList CreateJapaneseExam()
+	{
+
+		QuestionList questions;
+		questions = CreateKanjiExam();
+		const QuestionList idiomExam = CreateIdiomExam();
+		questions.insert(questions.end(), idiomExam.begin(), idiomExam.end());
+		QuestionList HomophoneExam = CreateHomophoneExam();
+		questions.insert(questions.end(), HomophoneExam.begin(), HomophoneExam.end());
+		QuestionList antonymExam = CreateAntonymExam();
+		questions.insert(questions.end(), antonymExam.begin(), antonymExam.end());
+		QuestionList synoymExam = CreateSynonymExam();
+		questions.insert(questions.end(), synoymExam.begin(), synoymExam.end());
+		return questions;
+	}
