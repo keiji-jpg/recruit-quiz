@@ -11,6 +11,8 @@
 #include<string>
 #include<vector>
 #include<random>
+#include<fstream>
+#include<time.h>
 using namespace std;
 
 
@@ -83,7 +85,7 @@ int main() {
             cout << "正解！" << endl;
             correctCounts[currentSubjectNo]++; //正答数を増やす
         }
-        else if(e.b.empty()) {
+        else if (e.b.empty()) {
             cout << "間違い！ 正解は " << e.a << " です。" << endl;
         }
         else {
@@ -116,6 +118,7 @@ int main() {
                 }
             }// if subject ==0
         } //for questions
+    }
 
         //成績を表示
         cout << "\n--- 成績 ---\n";
@@ -133,7 +136,49 @@ int main() {
             }
             cout << "合計:" << totalCorrectCount << '/' << questions.size() << '\n';
         }
-    }
+
+        //成績をファイルに出力する
+        static const char filename[] = "リクルート対策試験成績表.txt";
+        ofstream ofs(filename, ios_base::app);
+        if (!ofs) {
+            cerr << "エラー" << filename << "開けません\n";
+        }
+        else {
+           //現在の時刻(協定世界時間)を取得
+            const time_t t = time(nullptr);
+
+            //渠底世界時間を時間構造体に変化
+            tm examDate;
+            localtime_s(&examDate,&t);
+
+            //時間構造体を文字列に変換
+            char strDate[100];
+            strftime(strDate, size(strDate),"%Y/%m/%d(%a) %T\n", &examDate);
+            
+            if (subject > 0 && subject <= size(subjectData)) {
+                //教科テストの場合、試験した教科の成績だけを出力し、それ以外は空欄とする
+                ofs << strDate;
+                for (int i = 0; i < size(subjectData); i++) {
+                    ofs << ',';
+                    if (i == subject - 1) {
+                        ofs << correctCounts[0] << '/' << questions.size();
+                    }
+                }
+                cout << "成績を" << filename << "に出力しました\n";
+            }
+            else if (subject == 0) {
+                //総合テストの場合、すべての教科の成績を出力する
+                ofs << strDate;
+                for (int i = 0; i < size(subjectData); i++) {
+                    ofs << '.' << correctCounts[i] << '/' << questionCounts[i];
+                }
+                cout << "成績を" << filename << "に出力しました\n";
+                
+            }
+
+        } // if !ofs
+
+    
 
     return 0;
 }
